@@ -6,22 +6,55 @@
 
 <script>
 
-$(document).ready(function(){
 
+var SynAPI = (function(){
 	var baseApiUrl = 'api.php';
 
-	$.ajax({
-	  url: baseApiUrl,
-	  data: '',
-	  success: function(){
-	  	console.log('ok:');
-	  	console.log(data);
-	  },
-	  fail: function(data){
-	  	console.log('failed:');
-	  	console.log(data);
-	  }
-	});
+	function getHashtag(hashtag,cbSuccess,cbFail){
+		$.ajax({
+		  url: baseApiUrl+'/hashtag/'+hashtag+'/',
+		  type: 'GET',
+		  data: '',
+		  success: cbSuccess,
+		  fail: cbFail
+		});
+	}
+
+	function putColour(hashtag,colour,cbSuccess,cbFail){
+		$.ajax({
+		  url: baseApiUrl+'/hashtag/'+hashtag+'/',
+		  type: 'PUT',
+		  data: 'colour='+colour,
+		  success: cbSuccess,
+		  fail: cbFail
+		});
+
+	}
+
+	return {
+		getHashtag: getHashtag,
+		putColour: putColour
+	};
+
+})();
+
+function debugMeSuccess(data){	
+	debugMe('SUCCESS:',data);
+}
+function debugMeFail(data){	
+	debugMe('FAIL:',data);
+}
+function debugMe(message,data){
+	console.log(message);	
+	console.log(data);
+
+}
+
+
+$(document).ready(function(){
+
+	//SynAPI.getHashtag('test',debugMeSuccess,debugMeFail);
+	SynAPI.putColour('test','fc0c0c',debugMeSuccess,debugMeFail);
 
 
 
