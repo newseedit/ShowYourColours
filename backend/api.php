@@ -35,10 +35,18 @@ if (isset($resource)){
     if ($resource == 'hashtag'){
     	if (!empty($name)){
             if ($method == 'POST'){
-                $sth = $dbh->prepare('INSERT INTO t_opinion (f_tag_id,f_time,f_op_text) VALUES (1,NOW(),?)');
-                $sth->execute(array($_REQUEST['colour']));
-                $json[$resource]['colour'] = hex2rgb($_REQUEST['colour']);
-
+                $rgb = hex2rgb($_REQUEST['colour']);
+                $lat = $_REQUEST['lat'];
+                $lon = $_REQUEST['lon'];
+                try {
+                    $sth = $dbh->prepare('CALL insert_opinion(NULL, ?, ?, ?, ?, ?, ?);');
+                    $sth->execute(array($name, $lat, $lon, $rgb[0], $rgb[1], $rgb[2]));
+                }
+                catch(PDOException $e){
+                    echo $e->getMessage();
+                    exit;
+                }
+                $json[$resource]['colour'] = $rgb;
             }
             $json[$resource]['name'] = $name;
             $json[$resource]['data'] = [];
@@ -61,8 +69,8 @@ if (isset($resource)){
         }
         else{
             /* fetch a list of hashtags */
-            $sth = $dbh->prepare('CALL get_tags();');
-            $sth->execute();
+            $sth = $dbh->prepare('CALL get_tags(?);');
+            $sth->execute(array($_REQUEST['partial']));
             while ($row = $sth->fetch()){
                 array_push($data,$row['f_tag']);
             }
@@ -78,6 +86,7 @@ $json['DEBUG']['PATH'] = $parts;
 
 
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
 print json_encode($json, JSON_PRETTY_PRINT);
 exit;
 

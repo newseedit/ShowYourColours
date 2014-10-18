@@ -1,7 +1,7 @@
 var SynAPI = (function(){
 	var baseApiUrl = 'http://10.12.74.110/';
-	var lon;
-	var lat;
+	var lon = 0;
+	var lat = 0;
 
 	function init(){
 		getLocation();
@@ -12,6 +12,16 @@ var SynAPI = (function(){
 		  url: baseApiUrl+'hashtag/'+hashtag,
 		  type: 'GET',
 		  data: '',
+		  success: cbSuccess,
+		  fail: cbFail
+		});
+	}
+
+	function searchHashtag(partial,cbSuccess,cbFail){
+		$.ajax({
+		  url: baseApiUrl+'hashtag/',
+		  type: 'GET',
+		  data: 'partial='+partial,
 		  success: cbSuccess,
 		  fail: cbFail
 		});
@@ -37,6 +47,7 @@ var SynAPI = (function(){
 	function setPosition(pos){
 		lon = pos.coords.latitude;
 		lat = pos.coords.longitude;
+		console.log(pos.coords);
 	}
 
 	return {
