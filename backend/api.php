@@ -1,6 +1,6 @@
 <?php
 
-//phpinfo();
+define(DEBUG,true);
 
 /*** mysql hostname ***/
 $hostname = '10.12.75.94';
@@ -80,10 +80,11 @@ if (isset($resource)){
     }
 }
 
-$json['DEBUG']['SERVER'] = $_SERVER;
-$json['DEBUG']['REQUEST'] = $_REQUEST;
-$json['DEBUG']['PATH'] = $parts;
-
+if (DEBUG){
+    $json['DEBUG']['SERVER'] = $_SERVER;
+    $json['DEBUG']['REQUEST'] = $_REQUEST;
+    $json['DEBUG']['PATH'] = $parts;
+}
 
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
