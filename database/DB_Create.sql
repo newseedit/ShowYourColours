@@ -29,8 +29,9 @@ CREATE TABLE `t_opinion` (
   `f_tag_id` int(11) DEFAULT NULL,
   `f_time` datetime DEFAULT NULL COMMENT 'Date and time upto seconds',
   `f_user_id` int(11) DEFAULT NULL COMMENT 'User id',
-  `f_longitude` decimal(25,20) DEFAULT NULL,
-  `f_latitude` decimal(25,20) DEFAULT NULL,
+  `f_geocode` point DEFAULT NULL COMMENT 'Using Mysql point datatype for easy seeks.',
+  `f_longitude` float DEFAULT NULL,
+  `f_latitude` float DEFAULT NULL,
   `f_op_red` int(11) DEFAULT NULL COMMENT 'Red colour from 0-255',
   `f_op_green` int(11) DEFAULT NULL COMMENT 'Green colour from 0-255',
   `f_op_blue` int(11) DEFAULT NULL COMMENT 'Blue\n colour from 0-255',
@@ -74,4 +75,4 @@ CREATE TABLE `t_tag` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-18 18:10:02
+-- Dump completed on 2014-10-18 18:36:33
