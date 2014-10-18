@@ -33,10 +33,11 @@ catch(PDOException $e){
 
 $json = array();
 
-$json['test'] = 'helloworld!';
+$json['DEBUG']['SERVER'] = $_SERVER;
 
 if ($resource == 'hashtag'){
 	
 }
 
-print json_encode($json);
+header('Content-Type: application/json');
+print json_encode($json, JSON_PRETTY_PRINT);
