@@ -18,7 +18,7 @@ var SynAPI = (function(){
 
 	function getHashtag(hashtag,cbSuccess,cbFail){
 		$.ajax({
-		  url: baseApiUrl+'/hashtag/'+hashtag+'/',
+		  url: baseApiUrl+'/hashtag/'+hashtag,
 		  type: 'GET',
 		  data: '',
 		  success: cbSuccess,
@@ -29,7 +29,7 @@ var SynAPI = (function(){
 	function putColour(hashtag,colour,cbSuccess,cbFail){
 		$.ajax({
 		  url: baseApiUrl+'/hashtag/'+hashtag+'/',
-		  type: 'POST', // TODO: should be PUT but PHP is obnoxious... file_get_contents("php://input") 
+		  type: 'POST', // TODO: should be PUT but PHP is obnoxious...  
 		  data: 'colour='+colour+'&lat='+lat+'&lon='+lon,
 		  success: cbSuccess,
 		  fail: cbFail
@@ -73,7 +73,8 @@ $(document).ready(function(){
 
 	SynAPI.init();
 	//SynAPI.getHashtag('test',debugMeSuccess,debugMeFail);
-	SynAPI.putColour('test','fc0c0c',debugMeSuccess,debugMeFail);
+	//SynAPI.getHashtag('',debugMeSuccess,debugMeFail);
+	//SynAPI.putColour('test','fc0c0c',debugMeSuccess,debugMeFail);
 
 
 

@@ -43,13 +43,15 @@ if (!defined($date)){
     // NULL date is OK, get all data for now
 }
 
-$colour = array();
+$data = array();
 
 if (isset($resource)){
     if ($resource == 'hashtag'){
-    	if (isset($name)){
-            if ($method == 'PUT'){
-                $sth = $dbh->prepare('INSERT INTO t_opinion (f_tag_id,f_time) VALUES (1,NOW())');
+    	if (!empty($name)){
+            if ($method == 'POST'){
+                $sth = $dbh->prepare('INSERT INTO t_opinion (f_tag_id,f_time,f_op_text) VALUES (1,NOW(),?)');
+                $sth->execute(array($_REQUEST['colour']));
+                $json[$resource]['colour'] = hex2rgb($_REQUEST['colour']);
 
             }
             $json[$resource]['name'] = $name;
@@ -67,8 +69,20 @@ if (isset($resource)){
                 $tmp['r'] = $row['f_'];
                 $tmp['g'] = $row['f_'];
                 $tmp['b'] = $row['f_'];
+                array_push($data,$tmp);
             }
             */
+        }
+        else{
+            /* fetch a list of hashtags */
+            $sth = $dbh->prepare('CALL get_tags();');
+            $sth->execute();
+            $json[$resource]['name'] = $resource;
+            while ($row = $sth->fetch()){
+                array_push($data,$row['f_tag']);
+            }
+            $json[$resource]['data'] = $data;
+
         }
     }
 }
@@ -80,3 +94,21 @@ $json['DEBUG']['PATH'] = $parts;
 
 header('Content-Type: application/json');
 print json_encode($json, JSON_PRETTY_PRINT);
+exit;
+
+
+function hex2rgb($hex){
+   if(strlen($hex) == 3) {
+      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+   } else {
+      $r = hexdec(substr($hex,0,2));
+      $g = hexdec(substr($hex,2,2));
+      $b = hexdec(substr($hex,4,2));
+   } 
+   return array($r,$g,$b);
+}
+
+
+
