@@ -3,16 +3,16 @@
 //phpinfo();
 
 /*** mysql hostname ***/
-$hostname = 'localhost';
+$hostname = '10.12.75.94';
 
 /*** mysql username ***/
-$username = 'root';
+$username = 'synesthesia';
 
 /*** mysql password ***/
-$password = '';
+$password = 'synes';
 
 try {
-    $dbh = new PDO("mysql:host=127.0.0.1;dbname=synesthesia", $username, $password);
+    $dbh = new PDO("mysql:host=$hostname;dbname=synesthesia", $username, $password);
 }
 catch(PDOException $e){
     echo $e->getMessage();
@@ -30,10 +30,10 @@ $json = array();
 $path = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 $parts = explode("/",$path);
-$resource = $parts[2];
-$name = $parts[3];
-$zoom = $parts[4];
-$date = $parts[5];
+$resource = $parts[1];
+$name = $parts[2];
+$zoom = $parts[3];
+$date = $parts[4];
 
 if (!defined($zoom)){
     // zoom 1 = max zoom, Earth level
@@ -77,11 +77,10 @@ if (isset($resource)){
             /* fetch a list of hashtags */
             $sth = $dbh->prepare('CALL get_tags();');
             $sth->execute();
-            $json[$resource]['name'] = $resource;
             while ($row = $sth->fetch()){
                 array_push($data,$row['f_tag']);
             }
-            $json[$resource]['data'] = $data;
+            $json[$resource] = $data;
 
         }
     }
