@@ -53,7 +53,8 @@ var SynAPI = (function(){
 	return {
 		init: init,
 		getHashtag: getHashtag,
-		putColour: putColour
+		putColour: putColour,
+		searchHashtag: searchHashtag
 	};
 
 })();

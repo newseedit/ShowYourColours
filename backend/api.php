@@ -23,7 +23,7 @@ catch(PDOException $e){
 $json = array();
 
 /* figure out the request */
-$path = $_SERVER['REQUEST_URI'];
+$path = $_SERVER['REDIRECT_URL'];
 $method = $_SERVER['REQUEST_METHOD'];
 $parts = explode("/",$path);
 $resource = $parts[1];
