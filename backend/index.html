@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="SynAPI.js"></script>
+<script>
+
+
+function debugMeSuccess(data){	
+	debugMe('SUCCESS:',data);
+}
+function debugMeFail(data){	
+	debugMe('FAIL:',data);
+}
+function debugMe(message,data){
+	console.log(message);	
+	console.log(data);
+
+}
+
+
+$(document).ready(function(){
+
+	SynAPI.init();
+	//SynAPI.getHashtag('test',debugMeSuccess,debugMeFail);
+	SynAPI.getHashtag('',debugMeSuccess,debugMeFail);
+	//SynAPI.putColour('test','fc0c0c',debugMeSuccess,debugMeFail);
+
+
+
+});
+
+
+</script>
+
+
+</head>
+<body>
+Synesthesia
+</body>
+</html>
