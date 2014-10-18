@@ -28,6 +28,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $parts = explode("/",$path);
 $resource = $parts[1];
 $name = $parts[2];
+$subentity = $parts[3];
 
 $data = array();
 
@@ -35,37 +36,48 @@ if (isset($resource)){
     if ($resource == 'hashtag'){
     	if (!empty($name)){
             if ($method == 'POST'){
-                $rgb = hex2rgb($_REQUEST['colour']);
-                $lat = $_REQUEST['lat'];
-                $lon = $_REQUEST['lon'];
-                try {
-                    $sth = $dbh->prepare('CALL insert_opinion(NULL, ?, ?, ?, ?, ?, ?);');
-                    $sth->execute(array($name, $lat, $lon, $rgb[0], $rgb[1], $rgb[2]));
+                if (!empty($subentity)){
+                    try {
+                        $sth = $dbh->prepare('CALL insert_opinion(NULL, ?, ?, ?, ?, ?, ?);');
+                        $sth->execute(array($name, $lat, $lon, $rgb[0], $rgb[1], $rgb[2]));
+                    }
+                    catch(PDOException $e){
+                        echo $e->getMessage();
+                        exit;
+                    }
                 }
-                catch(PDOException $e){
-                    echo $e->getMessage();
-                    exit;
+                else{
+                    $rgb = hex2rgb($_REQUEST['colour']);
+                    $lat = $_REQUEST['lat'];
+                    $lon = $_REQUEST['lon'];
+                    try {
+                        $sth = $dbh->prepare('CALL insert_opinion(NULL, ?, ?, ?, ?, ?, ?);');
+                        $sth->execute(array($name, $lat, $lon, $rgb[0], $rgb[1], $rgb[2]));
+                    }
+                    catch(PDOException $e){
+                        echo $e->getMessage();
+                        exit;
+                    }
+                    $json[$resource]['colour'] = $rgb;
                 }
-                $json[$resource]['colour'] = $rgb;
             }
-            $json[$resource]['name'] = $name;
-            $json[$resource]['data'] = [];
-            /* TODO: 
-            $sth = $dbh->prepare("functioncall ?");
-            $sth->execute($name,$zoom);
-            while ($row = $sth->fetch()){
-                $tmp = array();
-                $tmp['tag'] = $row['f_'];
-                $tmp['lat'] = $row['f_'];
-                $tmp['lon'] = $row['f_'];
-                $tmp['time'] = $row['f_'];
-                $tmp['r'] = $row['f_'];
-                $tmp['g'] = $row['f_'];
-                $tmp['b'] = $row['f_'];
-                array_push($data,$tmp);
+            else{
+                $sth = $dbh->prepare("CALL get_opinions(?,1,NULL,NULL,NULL,NULL,NULL,NULL);");
+                $sth->execute(array($name));
+                while ($row = $sth->fetch()){
+                    $tmp = array();
+                    $tmp['tag'] = $row['f_tag'];
+                    $tmp['lat'] = $row['f_lat'];
+                    $tmp['lon'] = $row['f_long'];
+                    $tmp['r'] = $row['f_op_red'];
+                    $tmp['g'] = $row['f_op_green'];
+                    $tmp['b'] = $row['f_op_blue'];
+                    $tmp['count'] = $row['Count'];
+                    array_push($data,$tmp);
+                }
+                $json[$resource]['data'] = $data;
+                $json[$resource]['data'] = $data;
             }
-            */
-            $json[$resource]['data'] = $data;
         }
         else{
             /* fetch a list of hashtags */

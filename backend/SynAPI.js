@@ -35,7 +35,16 @@ var SynAPI = (function(){
 		  success: cbSuccess,
 		  fail: cbFail
 		});
+	}
 
+	function addPreset(hashtag,colour,cbSuccess,cbFail){
+		$.ajax({
+		  url: baseApiUrl+'hashtag/'+hashtag+'/preset/',
+		  type: 'POST',  
+		  data: 'colour='+colour,
+		  success: cbSuccess,
+		  fail: cbFail
+		});
 	}
 
 	function getLocation() {
