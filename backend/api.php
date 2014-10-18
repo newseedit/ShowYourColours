@@ -19,10 +19,6 @@ catch(PDOException $e){
     exit;
 }
 
-
-/**/
-
-
 /* object to build up return info in */
 $json = array();
 
@@ -32,16 +28,6 @@ $method = $_SERVER['REQUEST_METHOD'];
 $parts = explode("/",$path);
 $resource = $parts[1];
 $name = $parts[2];
-$zoom = $parts[3];
-$date = $parts[4];
-
-if (!defined($zoom)){
-    // zoom 1 = max zoom, Earth level
-    $zoom = 1;
-}
-if (!defined($date)){
-    // NULL date is OK, get all data for now
-}
 
 $data = array();
 
@@ -56,7 +42,6 @@ if (isset($resource)){
             }
             $json[$resource]['name'] = $name;
             $json[$resource]['data'] = [];
-            $json[$resource]['method'] = $method;
             /* TODO: 
             $sth = $dbh->prepare("functioncall ?");
             $sth->execute($name,$zoom);
@@ -72,6 +57,7 @@ if (isset($resource)){
                 array_push($data,$tmp);
             }
             */
+            $json[$resource]['data'] = $data;
         }
         else{
             /* fetch a list of hashtags */

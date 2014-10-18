@@ -1,5 +1,5 @@
 var SynAPI = (function(){
-	var baseApiUrl = '/';
+	var baseApiUrl = 'http://10.12.74.110/';
 	var lon;
 	var lat;
 
