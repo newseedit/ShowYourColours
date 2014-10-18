@@ -9,6 +9,12 @@
 
 var SynAPI = (function(){
 	var baseApiUrl = 'api.php';
+	var lon;
+	var lat;
+
+	function init(){
+		getLocation();
+	}
 
 	function getHashtag(hashtag,cbSuccess,cbFail){
 		$.ajax({
@@ -23,15 +29,27 @@ var SynAPI = (function(){
 	function putColour(hashtag,colour,cbSuccess,cbFail){
 		$.ajax({
 		  url: baseApiUrl+'/hashtag/'+hashtag+'/',
-		  type: 'PUT',
-		  data: 'colour='+colour,
+		  type: 'POST', // TODO: should be PUT but PHP is obnoxious... file_get_contents("php://input") 
+		  data: 'colour='+colour+'&lat='+lat+'&lon='+lon,
 		  success: cbSuccess,
 		  fail: cbFail
 		});
 
 	}
 
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(setPosition);
+	    }
+	}
+
+	function setPosition(pos){
+		lon = pos.coords.latitude;
+		lat = pos.coords.longitude;
+	}
+
 	return {
+		init: init,
 		getHashtag: getHashtag,
 		putColour: putColour
 	};
@@ -53,6 +71,7 @@ function debugMe(message,data){
 
 $(document).ready(function(){
 
+	SynAPI.init();
 	//SynAPI.getHashtag('test',debugMeSuccess,debugMeFail);
 	SynAPI.putColour('test','fc0c0c',debugMeSuccess,debugMeFail);
 

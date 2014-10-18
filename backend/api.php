@@ -12,15 +12,7 @@ $username = 'root';
 $password = '';
 
 try {
-    $dbh = new PDO("mysql:host=127.0.0.1;dbname=mysql", $username, $password);
-    /*** echo a message saying we have connected ***/
-    /*
-    echo 'Connected to database';
-    $sth = $dbh->prepare("show databases");
-    $sth->execute();
-    $data = $sth->fetchAll();
-    print_r($data);
-    */
+    $dbh = new PDO("mysql:host=127.0.0.1;dbname=synesthesia", $username, $password);
 }
 catch(PDOException $e){
     echo $e->getMessage();
@@ -57,6 +49,7 @@ if (isset($resource)){
     if ($resource == 'hashtag'){
     	if (isset($name)){
             if ($method == 'PUT'){
+                $sth = $dbh->prepare('INSERT INTO t_opinion (f_tag_id,f_time) VALUES (1,NOW())');
 
             }
             $json[$resource]['name'] = $name;
