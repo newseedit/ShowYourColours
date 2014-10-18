@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+	var baseApiUrl = 'api.php';
+
+	$.ajax({
+	  url: baseApiUrl,
+	  data: '',
+	  success: function(){
+	  	console.log('ok:');
+	  	console.log(data);
+	  },
+	  fail: function(data){
+	  	console.log('failed:');
+	  	console.log(data);
+	  }
+	});
+
+
+
+});
+
+
+</script>
+
+
+</head>
+<body>
+Synesthesia
+</body>
+</html>
