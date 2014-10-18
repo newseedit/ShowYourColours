@@ -81,8 +81,14 @@ if (isset($resource)){
         }
         else{
             /* fetch a list of hashtags */
-            $sth = $dbh->prepare('CALL get_tags(?);');
-            $sth->execute(array($_REQUEST['partial']));
+            if (!empty($_REQUEST['partial'])){
+                $sth = $dbh->prepare('CALL get_tags(?);');
+                $sth->execute(array($_REQUEST['partial']));
+            }
+            else{
+                $sth = $dbh->prepare("CALL get_tags('');");
+                $sth->execute();
+            }
             while ($row = $sth->fetch()){
                 array_push($data,$row['f_tag']);
             }
