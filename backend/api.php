@@ -62,7 +62,7 @@ if (isset($resource)){
                 }
             }
             else{
-                $sth = $dbh->prepare("CALL get_opinions(?,1,NULL,NULL,NULL,NULL,NULL,NULL);");
+                $sth = $dbh->prepare("CALL get_opinions(?,0,NULL,NULL,NULL,NULL,NULL,NULL);");
                 $sth->execute(array($name));
                 while ($row = $sth->fetch()){
                     $tmp = array();
