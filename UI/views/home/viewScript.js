@@ -7,13 +7,13 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
     $scope.tags = []
     $scope.selected = selection.selected
 
-    $http.get('http://10.12.74.110/backend/hashtag').
+    $http.get(selection.baseURL + '/backend/hashtag').
         success(function(data) {
             $scope.tags = data.hashtag;
         });
 
     $scope.select = function(){
-        var path = 'http://10.12.74.110/backend/hashtag/'+$scope.selected
+        var path = selection.baseURL + '/backend/hashtag/'+$scope.selected
         $rootScope.config.purge = true
 
         $scope.spinner = true
@@ -27,7 +27,7 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
             });
     }
 
-    $http.get('http://10.12.74.110/backend/colour/').
+    $http.get(selection.baseURL + '/backend/colour/').
         success(function(response) {
             $rootScope.data = response.colour.data;
             selection.selected = ""
@@ -46,6 +46,9 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
 
         $rootScope.config.lat = pos.coords.latitude;
         $rootScope.config.lon = pos.coords.longitude;
+
+        selection.lon = pos.coords.longitude;
+        selection.lat = pos.coords.latitude;
         console.debug("###########")
         console.debug($rootScope.config.lat)
         console.debug($rootScope.config.lon)

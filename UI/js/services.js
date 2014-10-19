@@ -21,6 +21,7 @@ angular.module('myApp.services', [])
     }])
     .factory('selection', function(){
         return {
-            selected: ""
+            selected: "",
+            baseURL: "http://10.12.74.110"
         }
     })

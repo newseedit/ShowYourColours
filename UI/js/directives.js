@@ -97,12 +97,12 @@ angular.module('myApp.directives', [])
                     .attr("class", "boundary")
                     .attr("d", path)
                     .style("stroke",color20(1))
-
                 $rootScope.$watch('data', function(newData, oldData){
-                    console.debug("root data watch function")
+
                     if(newData != oldData){
 
                         if ( newData.length > 0){
+                            //$rootScope.config.data = newData
                             var data = newData.map(function(d){
                                 var proj = projection([d.lon , d.lat]);
                                 d.lat = proj[1];
@@ -110,7 +110,7 @@ angular.module('myApp.directives', [])
                                 return d
                             })
                             data.sort(sortByLength);
-                            
+
                             var len = newData.length
                             var binSize = 100
                             var view = [0,binSize]
@@ -131,23 +131,16 @@ angular.module('myApp.directives', [])
                                         .attr("r", 0)
                                         .attr("fill", function(d){
                                             return "rgb("+d.r+","+d.g+","+d.g+")" })
-                                        .attr("fill-opacity",0.7)
+                                        .attr("fill-opacity",0.5)
                                         .transition()
                                         .duration(2000)
-                                        .attr("r", function(d){ return 2*Math.sqrt(d.count/zoom.scale()) })
+                                        .attr("r", function(d){ return 2*Math.sqrt(d.count/s) })
                                 n--
                                 if(n>0){
                                     setTimeout(animate, timeout)
                                 }
                             }
                             animate()
-
-
-
-                            //window.data = newData;
-
-
-
 
                         }
                     }
@@ -179,7 +172,7 @@ angular.module('myApp.directives', [])
                             .transition()
                             .duration(2000)
                             .attr("r", 20)
-                            .transition().duration(2000).attr("r", 8)
+                            .transition().duration(2000).attr("r", 4)
                             .attr("class","dot")
 
                     }

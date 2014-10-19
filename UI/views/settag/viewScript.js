@@ -1,6 +1,7 @@
 'use strict';
 
-viewModule.controller('settagController', ["$scope", '$location','$rootScope', '$http', function($scope, $location, $rootScope, $http) {
+viewModule.controller('settagController', ["$scope", '$location','$rootScope', '$http','selection',
+    function($scope, $location, $rootScope, $http, selection) {
 
     var w = 300,
         h = 300,
@@ -66,15 +67,11 @@ viewModule.controller('settagController', ["$scope", '$location','$rootScope', '
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    var baseApiUrl = 'http://10.12.74.110/';
-    var lon = $rootScope.config.lon;
-    var lat = $rootScope.config.lat;
-
-
-
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     function postData(color, tag) {
+        var lon = selection.lon;
+        var lat = selection.lat;
         $rootScope.userdata = {
             color: color,
             lat: lat,
@@ -82,7 +79,7 @@ viewModule.controller('settagController', ["$scope", '$location','$rootScope', '
         }
 
         $http({
-            url: baseApiUrl+'backend/hashtag/'+tag+'/',
+            url: selection.baseURL + '/backend/hashtag/'+tag+'/',
             method: "POST",
             data: 'colour='+color+'&lat='+lat+'&lon='+lon
         })
