@@ -10,7 +10,7 @@
                         Tag a color
                     </a>
                 </span>
-                <input type="text" class="form-control" ng-enter="select()" ng-model="selected" typeahead="tag for tag in tags | filter:$viewValue | limitTo:8"  placeholder="{{selected}}"></input>
+                <input type="text" class="form-control" ng-enter="select()" ng-model="selection" typeahead="tag for tag in tags | filter:$viewValue | limitTo:8"  placeholder="{{selection}}"></input>
                 <span class="input-group-addon">
                     <a href="#/newtag">
                         <span class="glyphicon glyphicon-plus"></span>

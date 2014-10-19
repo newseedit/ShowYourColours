@@ -1,26 +1,27 @@
 'use strict';
 
-viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$http','$location',
-    function($scope,$rootScope, jsonService,$http, $location) {
-
+viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$http','$location', 'selection',
+    function($scope,$rootScope, jsonService,$http, $location, selection) {
+    $rootScope.config = {}
     $scope.spinner = false;
     $scope.tags = []
-    $scope.selected = ""
+    $scope.selected = selection.selected
 
-    $http.get('http://10.12.74.110/backend/hashtag/').
+    $http.get('http://10.12.74.110/backend/hashtag').
         success(function(data) {
             $scope.tags = data.hashtag;
-            console.debug($scope.tags)
         });
 
     $scope.select = function(){
         var path = 'http://10.12.74.110/backend/hashtag/'+$scope.selected
-        $rootScope.data = "purge"
+        $rootScope.config.purge = true
+
         $scope.spinner = true
         $http.get(path).
             success(function(response) {
                  $rootScope.data = response.hashtag.data;
-                 $rootScope.data.selected = $scope.selected;
+                 //$rootScope.data.selected = $scope.selected;
+                 selection.selected = $scope.selected
                  $scope.spinner = false;
                  $location.path("/viewtag")
             });
@@ -36,7 +37,7 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
     }
 
     function setPosition(pos){
-        $rootScope.config = {}
+
         $rootScope.config.lat = pos.coords.latitude;
         $rootScope.config.lon = pos.coords.longitude;
         console.debug("###########")

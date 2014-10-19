@@ -75,13 +75,19 @@ viewModule.controller('settagController', ["$scope", '$location','$rootScope', '
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
     function postData(color, tag) {
+        $rootScope.userdata = {
+            color: color,
+            lat: lat,
+            lon: lon
+        }
+
         $http({
             url: baseApiUrl+'backend/hashtag/'+tag+'/',
             method: "POST",
             data: 'colour='+color+'&lat='+lat+'&lon='+lon
         })
         .then(function(response) {
-                // success
+
             },
             function(response) { // optional
                 // failed

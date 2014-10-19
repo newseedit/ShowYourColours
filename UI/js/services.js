@@ -4,7 +4,7 @@ angular.module('myApp.services', [])
         var tags;
 
         httpGetTags = function() {
-            $http.get('http://10.12.74.110/backend/hashtag').
+            $http.get('http://10.12.74.110/hashtag').
                 success(function(data) {
                     console.debug(data)
                     $scope.tags = data;
@@ -18,10 +18,9 @@ angular.module('myApp.services', [])
         }
 
 
-    }])/*
-    .service('server', function(){
-
-        this.getWorldJSON = function(){
-            return mapJSON
+    }])
+    .factory('selection', function(){
+        return {
+            selected: ""
         }
-    })*/
+    })
