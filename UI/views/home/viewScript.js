@@ -27,6 +27,12 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
             });
     }
 
+    $http.get('http://10.12.74.110/backend/colour/').
+        success(function(response) {
+            $rootScope.data = response.colour.data;
+            selection.selected = ""
+    });
+
     /////////////////////////////////////////////////////////////////
 
     function getLocation() {
