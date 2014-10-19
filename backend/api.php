@@ -26,9 +26,9 @@ $json = array();
 $path = $_SERVER['REDIRECT_URL'];
 $method = $_SERVER['REQUEST_METHOD'];
 $parts = explode("/",$path);
-$resource = $parts[1];
-$name = $parts[2];
-$subentity = $parts[3];
+$resource = $parts[2];
+$name = $parts[3];
+$subentity = $parts[4];
 
 $data = array();
 
