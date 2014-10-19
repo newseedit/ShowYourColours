@@ -56,7 +56,6 @@ var SynAPI = (function(){
 	function setPosition(pos){
 		lon = pos.coords.latitude;
 		lat = pos.coords.longitude;
-		console.log(pos.coords);
 	}
 
 	return {
