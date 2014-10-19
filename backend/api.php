@@ -3,13 +3,23 @@
 define(DEBUG,true);
 
 /*** mysql hostname ***/
-$hostname = '10.12.75.94';
+//$hostname = '10.12.75.94';
 
 /*** mysql username ***/
-$username = 'synesthesia';
+//$username = 'synesthesia';
 
 /*** mysql password ***/
-$password = 'synes';
+//$password = 'synes';
+
+
+$hostname = '127.0.0.1';
+
+
+$username = 'root';
+
+
+$password = '';
+
 
 try {
     $dbh = new PDO("mysql:host=$hostname;dbname=synesthesia", $username, $password);

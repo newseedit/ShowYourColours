@@ -2,6 +2,7 @@
 
 $i = 0;
 
+@now_colours = ("FF0000","00FF00","00FFFF");
 @our_colours = ("393b79", "5254a3", "6b6ecf", "9c9ede", "637939", "8ca252", "b5cf6b", "cedb9c", "8c6d31", "bd9e39", "e7ba52", "e7cb94", "843c39", "ad494a", "d6616b", "e7969c", "7b4173", "a55194", "ce6dbd", "de9ed6");
 @colours = qw(Black 
 Navy 
@@ -283,12 +284,14 @@ FFFF00
 FFFFE0
 FFFFF0
 FFFFFF);
-@hashtags = ("ebola","doctorswithoutborders","Arsenal","Arsenal","Chelsea","Mood","GoodMorning");
-@hashcol  = ("000000","fc0c0c","ff0000","ffffff","0019D6",undef,undef);
+@hashtags = ("colour","doctorswithoutborders","Arsenal","Arsenal","Mood","GoodMorning");
+@hashcol  = (undef,"fc0c0c","ff0000","ffffff","0019D6",undef,undef);
+#@hashtags = ("colour","Mood");
+#@hashcol  = (undef,undef);
 
 open(OUTPUT,">dirty.sql");
 
-for ($s=1;$s<19;$s++){
+for ($s=1;$s<22;$s++){
 	open(JSON,"sample".$s.".json");
 	while ($data = <JSON>){
 		if ($data =~ /^\{"delete/){
