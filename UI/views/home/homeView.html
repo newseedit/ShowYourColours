@@ -1,0 +1,45 @@
+<br><br><br><br><br><br>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class=" col-md-4" >
+            <h1>A World of Colors {{ test }}</h1>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <div ng-click="select()">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                </span>
+                <input type="text" class="form-control" ng-enter="select()" ng-model="selected" typeahead="tag for tag in tags  | filter:$viewValue | limitTo:8"  placeholder="Tag name"></input>
+                <span class="input-group-addon">
+                    <a href="#/newtag">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="spinner" ng-show="spinner">
+    <div class="spinner-container container1">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container2">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container3">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+    </div>
+</div>
