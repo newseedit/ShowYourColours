@@ -4,7 +4,7 @@ angular.module('myApp.services', [])
         var tags;
 
         httpGetTags = function() {
-            $http.get('http://10.12.74.110/hashtag/backend').
+            $http.get('http://10.12.74.110/backend/hashtag').
                 success(function(data) {
                     console.debug(data)
                     $scope.tags = data;

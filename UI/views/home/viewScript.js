@@ -7,14 +7,14 @@ viewModule.controller('indexController', ["$scope","$rootScope",'jsonService','$
     $scope.tags = []
     $scope.selected = ""
 
-    $http.get('http://10.12.74.110/hashtag/backend').
+    $http.get('http://10.12.74.110/backend/hashtag/').
         success(function(data) {
             $scope.tags = data.hashtag;
             console.debug($scope.tags)
         });
 
     $scope.select = function(){
-        var path = 'http://10.12.74.110/hashtag/backend/'+$scope.selected
+        var path = 'http://10.12.74.110/backend/hashtag/'+$scope.selected
         $rootScope.data = "purge"
         $scope.spinner = true
         $http.get(path).
