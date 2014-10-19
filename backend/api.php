@@ -33,6 +33,22 @@ $subentity = $parts[3];
 $data = array();
 
 if (isset($resource)){
+    if ($resource == 'colour'){
+        $sth = $dbh->prepare("CALL get_opinions(NULL,1,NULL,NULL,NULL,NULL,NULL,NULL);");
+        $sth->execute(array($name));
+        while ($row = $sth->fetch()){
+            $tmp = array();
+            $tmp['tag'] = $row['f_tag'];
+            $tmp['lat'] = $row['f_lat'];
+            $tmp['lon'] = $row['f_long'];
+            $tmp['r'] = $row['f_op_red'];
+            $tmp['g'] = $row['f_op_green'];
+            $tmp['b'] = $row['f_op_blue'];
+            $tmp['count'] = $row['countnum'];
+            array_push($data,$tmp);
+        }
+        $json[$resource]['data'] = $data;
+    }
     if ($resource == 'hashtag'){
     	if (!empty($name)){
             if ($method == 'POST'){
@@ -62,7 +78,7 @@ if (isset($resource)){
                 }
             }
             else{
-                $sth = $dbh->prepare("CALL get_opinions(?,0,NULL,NULL,NULL,NULL,NULL,NULL);");
+                $sth = $dbh->prepare("CALL get_opinions(?,1,NULL,NULL,NULL,NULL,NULL,NULL);");
                 $sth->execute(array($name));
                 while ($row = $sth->fetch()){
                     $tmp = array();
@@ -72,7 +88,7 @@ if (isset($resource)){
                     $tmp['r'] = $row['f_op_red'];
                     $tmp['g'] = $row['f_op_green'];
                     $tmp['b'] = $row['f_op_blue'];
-                    $tmp['count'] = $row['Count'];
+                    $tmp['count'] = $row['countnum'];
                     array_push($data,$tmp);
                 }
                 $json[$resource]['data'] = $data;
