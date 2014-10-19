@@ -284,11 +284,11 @@ White );
 #FFFFF0
 #FFFFFF);
 @hashtags = ("ebola","doctorswithoutborders","Arsenal","Arsenal","Chelsea","Mood","GoodMorning");
-@hashcol  = ("000000","ff0000","ff0000","ffffff","0019D6",undef,undef);
+@hashcol  = ("ccc","fc0c0c","ff0000","ffffff","0019D6",undef,undef);
 
 open(OUTPUT,">dirty.sql");
 
-for ($s=1;$s<14;$s++){
+for ($s=15;$s<16;$s++){
 	open(JSON,"sample".$s.".json");
 	while ($data = <JSON>){
 		if ($data =~ /^\{"delete/){
