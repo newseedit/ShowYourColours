@@ -4,13 +4,13 @@ viewModule.controller('viewtagController', ["$scope",'$http','$rootScope', funct
 
     $scope.spinner = false;
 
-    $http.get('http://10.12.74.110/hashtag').
+    $http.get('http://10.12.74.110/hashtag/backend').
         success(function(data) {
             $scope.tags = data.hashtag;
         });
 
     $scope.select = function(){
-        var path = 'http://10.12.74.110/hashtag/'+$scope.selected
+        var path = 'http://10.12.74.110/hashtag/backend/'+$scope.selected
 
         $scope.spinner = true
         $rootScope.data = "purge"

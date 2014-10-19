@@ -76,7 +76,7 @@ viewModule.controller('settagController', ["$scope", '$location','$rootScope', '
 
     function postData(color, tag) {
         $http({
-            url: baseApiUrl+'hashtag/'+tag+'/',
+            url: baseApiUrl+'hashtag/backend/'+tag+'/',
             method: "POST",
             data: 'colour='+color+'&lat='+lat+'&lon='+lon
         })
